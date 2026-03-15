@@ -17,20 +17,29 @@ resource "aws_iam_role" "role" {
 }
 
 data "aws_iam_policy_document" "policy" {
-  statement {
-    effect    = "Allow"
-    actions   = ["ec2:Describe*"]
-    resources = ["*"]
+  for_each = var.iam_policies
+
+  dynamic "statement" {
+    for_each = each.value.statements
+    content {
+      effect    = statement.value.effect
+      actions   = statement.value.actions
+      resources = statement.value.resources
+    }
   }
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = var.iam_policy_name
-  description = var.iam_policy_description
-  policy      = data.aws_iam_policy_document.policy.json
+  for_each = var.iam_policies
+
+  name        = each.key
+  description = each.key
+  policy      = data.aws_iam_policy_document.policy[each.key].json
 }
 
 resource "aws_iam_role_policy_attachment" "attach" {
+  for_each = var.iam_policies
+
   role       = aws_iam_role.role.name
-  policy_arn = aws_iam_policy.policy.arn
+  policy_arn = aws_iam_policy.policy[each.key].arn
 }
