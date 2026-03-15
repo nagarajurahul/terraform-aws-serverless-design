@@ -113,7 +113,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: config
-          scan-ref: .
+          scan-ref: terraform
           format: json
           output: trivy-report.json
           severity: HIGH,CRITICAL
