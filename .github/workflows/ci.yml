@@ -15,7 +15,7 @@ permissions:
 env:
   # verbosity setting for Terraform logs
   TF_LOG: INFO
-  TERRAFORM_VERSION: '1.14.4'
+  TERRAFORM_VERSION: '1.14.7'
 
 jobs:
   #############################################
