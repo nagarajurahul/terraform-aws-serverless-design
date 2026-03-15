@@ -24,4 +24,8 @@ resource "aws_dynamodb_table" "dynamodb_table" {
     projection_type = "ALL"
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
 }
