@@ -38,14 +38,17 @@ jobs:
         id: fmt
         run: terraform fmt -check -recursive
         continue-on-error: true
+        working-directory: terraform
 
       - name: Terraform Init
         id: init
         run: terraform init -backend=false
+        working-directory: terraform
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
+        working-directory: terraform
 
       - name: Comment PR - Format Check
         if: github.event_name == 'pull_request' && steps.fmt.outcome == 'failure'
@@ -87,9 +90,11 @@ jobs:
 
       - name: Initialize TFLint
         run: tflint --init
+        working-directory: terraform
 
       - name: Run TFLint
         run: tflint --format compact --recursive
+        working-directory: terraform
 
   #############################################
   # Job 3: Security Scanning
@@ -165,7 +170,7 @@ jobs:
       - name: Generate terraform docs
         uses: terraform-docs/gh-actions@v1.2.0
         with:
-          working-dir: .
+          working-dir: terraform
           output-file: README.md
           output-method: inject
           git-push: false
