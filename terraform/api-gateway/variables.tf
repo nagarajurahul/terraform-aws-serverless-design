@@ -32,3 +32,8 @@ variable "lambda_function_name" {
   description = ""
   type        = string
 }
+
+variable "stage_name" {
+  description = ""
+  type        = string
+}

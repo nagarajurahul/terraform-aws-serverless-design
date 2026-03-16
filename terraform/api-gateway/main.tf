@@ -25,3 +25,15 @@ resource "aws_api_gateway_integration" "integration" {
   type                    = "AWS_PROXY"
   uri                     = var.lambda_invoke_arn
 }
+
+resource "aws_api_gateway_deployment" "deployment" {
+  rest_api_id = aws_api_gateway_rest_api.REST_API.id
+
+  depends_on = [aws_api_gateway_integration.integration]
+}
+
+resource "aws_api_gateway_stage" "stage" {
+  deployment_id = aws_api_gateway_deployment.deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.REST_API.id
+  stage_name    = var.stage_name
+}

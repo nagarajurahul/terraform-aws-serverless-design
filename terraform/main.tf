@@ -55,9 +55,10 @@ module "api-gateway" {
 
   rest_api_name        = "test-api"
   rest_api_description = "Test API Description"
-  resource             = "test"
+  resource             = "orders2"
   http_method          = "POST"
   authorization        = "NONE"
   lambda_invoke_arn    = module.lambda.lambda_invoke_arn
   lambda_function_name = module.lambda.lambda_function_name
+  stage_name           = "dev"
 }
