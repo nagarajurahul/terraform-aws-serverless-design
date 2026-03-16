@@ -12,3 +12,8 @@ output "lambda_arn" {
   value       = module.lambda.lambda_arn
   description = "ARN of the Lambda function"
 }
+
+output "api_gateway_rest_api_arn" {
+  value       = module.api-gateway.api_gateway_rest_api_arn
+  description = "ARN of the API Gateway REST API"
+}
