@@ -8,6 +8,7 @@ module "dynamodb" {
   global_secondary_index_attributes = var.global_secondary_index_attributes
 }
 
+
 locals {
 
   create_order_policies = {
@@ -20,6 +21,17 @@ locals {
       }]
     }
 
+    cloudwatch_logs_policy = {
+      statements = [{
+        effect = "Allow"
+        actions = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        resources = ["arn:aws:logs:*:*:*"]
+      }]
+    }
   }
 
 }
