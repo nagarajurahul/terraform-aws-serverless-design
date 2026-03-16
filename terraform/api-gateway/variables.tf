@@ -22,3 +22,13 @@ variable "authorization" {
   description = ""
   type        = string
 }
+
+variable "lambda_invoke_arn" {
+  description = ""
+  type        = string
+}
+
+variable "lambda_function_name" {
+  description = ""
+  type        = string
+}

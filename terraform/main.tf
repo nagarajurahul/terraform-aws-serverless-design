@@ -49,3 +49,15 @@ module "lambda" {
   lambda_s3_bucket            = var.lambda_s3_bucket
   lambda_s3_key               = var.lambda_s3_key
 }
+
+module "api-gateway" {
+  source = "./api-gateway"
+
+  rest_api_name        = "test-api"
+  rest_api_description = "Test API Description"
+  resource             = "test"
+  http_method          = "POST"
+  authorization        = "NONE"
+  lambda_invoke_arn    = module.lambda.lambda_invoke_arn
+  lambda_function_name = module.lambda.lambda_function_name
+}
