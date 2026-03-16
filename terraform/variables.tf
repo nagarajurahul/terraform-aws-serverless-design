@@ -62,11 +62,6 @@ variable "lambda_function_description" {
   default     = "Lambda function deployed via Terraform"
 }
 
-variable "lambda_iam_role_arn" {
-  description = "IAM role ARN used by the Lambda function"
-  type        = string
-}
-
 variable "lambda_runtime" {
   description = "Lambda runtime environment"
   type        = string
