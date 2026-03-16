@@ -1,6 +1,9 @@
-output "iam_role_arn" {
-  value       = module.iam.iam_role_arn
-  description = "ARN of the IAM role"
+output "iam_role_arns" {
+  value = {
+    for k, v in module.iam :
+    k => v.iam_role_arn
+  }
+  description = "ARNs of the IAM roles"
 }
 
 output "dynamodb_table_arn" {
@@ -8,9 +11,12 @@ output "dynamodb_table_arn" {
   description = "ARN of the DynamoDB Table"
 }
 
-output "lambda_arn" {
-  value       = module.lambda.lambda_arn
-  description = "ARN of the Lambda function"
+output "lambda_arns" {
+  value = {
+    for k, v in module.lambda :
+    k => v.lambda_arn
+  }
+  description = "ARNs of the Lambda functions"
 }
 
 output "api_gateway_rest_api_arn" {

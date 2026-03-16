@@ -8,43 +8,17 @@ module "dynamodb" {
   global_secondary_index_attributes = var.global_secondary_index_attributes
 }
 
-
-locals {
-
-  create_order_policies = {
-
-    dynamodb_policy = {
-      statements = [{
-        effect    = "Allow"
-        actions   = ["dynamodb:PutItem"]
-        resources = [module.dynamodb.dynamodb_table_arn]
-      }]
-    }
-
-    cloudwatch_logs_policy = {
-      statements = [{
-        effect = "Allow"
-        actions = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        resources = ["arn:aws:logs:*:*:*"]
-      }]
-    }
-  }
-
-}
-
 module "iam" {
   # Here, I dont need to mention depends_on specifically on dynamodb
   # Because, Meanwhile dynamodb is getting created, other components such as role and assume role policy will be created first
   # When dynamodb gets ready with ARN, policy will be created from locals
   source = "./iam"
 
-  iam_role_name = var.iam_role_name
-  iam_principal = var.iam_principal
-  iam_policies  = local.create_order_policies
+  for_each = local.iam_roles
+
+  iam_role_name = each.key
+  iam_principal = each.value.principal
+  iam_policies  = each.value.iam_policies
 }
 
 module "lambda" {
@@ -54,13 +28,15 @@ module "lambda" {
   source     = "./lambda"
   depends_on = [module.iam]
 
-  lambda_function_name        = var.lambda_function_name
-  lambda_function_description = var.lambda_function_description
-  lambda_iam_role_arn         = module.iam.iam_role_arn
-  lambda_handler              = var.lambda_handler
-  lambda_runtime              = var.lambda_runtime
-  lambda_s3_bucket            = var.lambda_s3_bucket
-  lambda_s3_key               = var.lambda_s3_key
+  for_each = var.lambdas
+
+  lambda_function_name        = each.key
+  lambda_function_description = each.value.function_description
+  lambda_iam_role_arn         = module.iam[each.value.iam_role_name].iam_role_arn
+  lambda_handler              = each.value.handler
+  lambda_runtime              = each.value.runtime
+  lambda_s3_bucket            = each.value.s3_bucket
+  lambda_s3_key               = each.value.s3_key
 }
 
 module "api-gateway" {
@@ -71,7 +47,7 @@ module "api-gateway" {
   resource             = "orders2"
   http_method          = "POST"
   authorization        = "NONE"
-  lambda_invoke_arn    = module.lambda.lambda_invoke_arn
-  lambda_function_name = module.lambda.lambda_function_name
+  lambda_invoke_arn    = module.lambda["create-order"].lambda_invoke_arn
+  lambda_function_name = module.lambda["create-order"].lambda_function_name
   stage_name           = "dev"
 }
