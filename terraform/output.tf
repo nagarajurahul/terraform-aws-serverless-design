@@ -7,3 +7,8 @@ output "dynamodb_table_arn" {
   value       = module.dynamodb.dynamodb_table_arn
   description = "ARN of the DynamoDB Table"
 }
+
+output "lambda_arn" {
+  value       = module.lambda.lambda_arn
+  description = "ARN of the Lambda function"
+}
