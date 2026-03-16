@@ -23,6 +23,14 @@ locals {
             resources = ["arn:aws:logs:*:*:*"]
           }]
         }
+
+        create-order-event-bus-policy = {
+          statements = [{
+            effect    = "Allow"
+            actions   = ["events:PutEvents"]
+            resources = [module.eventbridge.event_bus_arn]
+          }]
+        }
       }
 
     }

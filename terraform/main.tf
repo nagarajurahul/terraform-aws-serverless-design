@@ -53,3 +53,14 @@ module "api-gateway" {
   lambda_function_name = module.lambda["create-order"].lambda_function_name
   stage_name           = "dev"
 }
+
+module "eventbridge" {
+  source = "./eventbridge"
+
+  event_rule_name        = "create-order-rule"
+  event_rule_description = "create-order-rule-desc"
+  target_id              = "SendToLambda"
+  event_target_arn       = module.lambda["process-payment"].lambda_arn
+  lambda_function_name   = "process-payment"
+  event_bus_name         = "orders-bus"
+}
