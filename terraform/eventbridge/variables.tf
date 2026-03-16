@@ -27,3 +27,8 @@ variable "event_bus_name" {
   description = ""
   type        = string
 }
+
+variable "event_bus_description" {
+  description = ""
+  type        = string
+}

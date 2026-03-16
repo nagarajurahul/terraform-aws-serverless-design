@@ -1,5 +1,6 @@
 resource "aws_cloudwatch_event_bus" "event_bus" {
-  name = var.event_bus_name
+  name        = var.event_bus_name
+  description = var.event_bus_description
 }
 
 resource "aws_cloudwatch_event_rule" "event_rule" {

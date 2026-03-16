@@ -63,4 +63,5 @@ module "eventbridge" {
   event_target_arn       = module.lambda["process-payment"].lambda_arn
   lambda_function_name   = "process-payment"
   event_bus_name         = "orders-bus"
+  event_bus_description  = "order-bus-desc"
 }
