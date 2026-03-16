@@ -3,7 +3,7 @@ resource "aws_lambda_function" "lambda" {
   description   = var.lambda_function_description
   role          = var.lambda_iam_role_arn
 
-  handler = "index.handler"
+  handler = var.lambda_handler
 
   runtime = var.lambda_runtime
 

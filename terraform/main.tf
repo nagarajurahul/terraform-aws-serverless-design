@@ -45,6 +45,7 @@ module "lambda" {
   lambda_function_name        = var.lambda_function_name
   lambda_function_description = var.lambda_function_description
   lambda_iam_role_arn         = module.iam.iam_role_arn
+  lambda_handler              = var.lambda_handler
   lambda_runtime              = var.lambda_runtime
   lambda_s3_bucket            = var.lambda_s3_bucket
   lambda_s3_key               = var.lambda_s3_key

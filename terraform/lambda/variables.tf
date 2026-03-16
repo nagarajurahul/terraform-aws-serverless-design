@@ -20,6 +20,11 @@ variable "lambda_runtime" {
   default     = "python3.14"
 }
 
+variable "lambda_handler" {
+  description = "Handler of the Lambda function"
+  type        = string
+}
+
 variable "lambda_s3_bucket" {
   description = "S3 bucket containing Lambda deployment package"
   type        = string

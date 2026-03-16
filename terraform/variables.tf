@@ -50,6 +50,11 @@ variable "lambda_function_description" {
   default     = "Lambda function deployed via Terraform"
 }
 
+variable "lambda_handler" {
+  description = "Handler of the Lambda function"
+  type        = string
+}
+
 variable "lambda_runtime" {
   description = "Lambda runtime environment"
   type        = string
