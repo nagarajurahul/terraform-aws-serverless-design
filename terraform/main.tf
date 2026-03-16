@@ -8,6 +8,7 @@ module "dynamodb" {
   global_secondary_index_attributes = var.global_secondary_index_attributes
 }
 
+
 locals {
 
   create_order_policies = {
@@ -20,6 +21,17 @@ locals {
       }]
     }
 
+    cloudwatch_logs_policy = {
+      statements = [{
+        effect = "Allow"
+        actions = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        resources = ["arn:aws:logs:*:*:*"]
+      }]
+    }
   }
 
 }
@@ -45,7 +57,21 @@ module "lambda" {
   lambda_function_name        = var.lambda_function_name
   lambda_function_description = var.lambda_function_description
   lambda_iam_role_arn         = module.iam.iam_role_arn
+  lambda_handler              = var.lambda_handler
   lambda_runtime              = var.lambda_runtime
   lambda_s3_bucket            = var.lambda_s3_bucket
   lambda_s3_key               = var.lambda_s3_key
+}
+
+module "api-gateway" {
+  source = "./api-gateway"
+
+  rest_api_name        = "test-api"
+  rest_api_description = "Test API Description"
+  resource             = "orders2"
+  http_method          = "POST"
+  authorization        = "NONE"
+  lambda_invoke_arn    = module.lambda.lambda_invoke_arn
+  lambda_function_name = module.lambda.lambda_function_name
+  stage_name           = "dev"
 }
