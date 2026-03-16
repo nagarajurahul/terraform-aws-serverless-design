@@ -14,18 +14,6 @@ variable "region" {
   default     = "us-east-2"
 }
 
-variable "iam_policies" {
-  description = "Define IAM policies to be attached to the role"
-  type = map(object({
-    statements = list(object({
-      sid       = optional(string)
-      effect    = string
-      actions   = list(string)
-      resources = list(string)
-    }))
-  }))
-}
-
 variable "dynamodb_table_name" {
   description = ""
   type        = string
