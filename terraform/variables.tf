@@ -33,11 +33,13 @@ variable "lambdas" {
   description = "Map of Lambdas"
 
   type = map(object({
-    function_description = string
-    handler              = string
-    runtime              = string
-    iam_role_name        = string
-    s3_bucket            = string
-    s3_key               = string
+    function_description  = string
+    handler               = string
+    runtime               = string
+    iam_role_name         = string
+    s3_bucket             = string
+    s3_key                = string
+    environment           = string
+    environment_variables = map(string)
   }))
 }

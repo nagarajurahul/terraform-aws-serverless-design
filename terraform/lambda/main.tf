@@ -11,9 +11,6 @@ resource "aws_lambda_function" "lambda" {
   s3_key    = var.lambda_s3_key
 
   environment {
-    variables = {
-      ENVIRONMENT = "production"
-      LOG_LEVEL   = "info"
-    }
+    variables = merge(local.default_env, var.lambda_environment_variables)
   }
 }

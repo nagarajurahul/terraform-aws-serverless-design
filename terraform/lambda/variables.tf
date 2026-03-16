@@ -34,3 +34,13 @@ variable "lambda_s3_key" {
   description = "S3 key of the Lambda deployment package"
   type        = string
 }
+
+variable "environment" {
+  description = "Environment of the project"
+  type        = string
+}
+
+variable "lambda_environment_variables" {
+  description = "Environment variables for the Lambda function"
+  type        = map(string)
+}

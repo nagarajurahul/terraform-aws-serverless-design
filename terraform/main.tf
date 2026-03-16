@@ -30,13 +30,15 @@ module "lambda" {
 
   for_each = var.lambdas
 
-  lambda_function_name        = each.key
-  lambda_function_description = each.value.function_description
-  lambda_iam_role_arn         = module.iam[each.value.iam_role_name].iam_role_arn
-  lambda_handler              = each.value.handler
-  lambda_runtime              = each.value.runtime
-  lambda_s3_bucket            = each.value.s3_bucket
-  lambda_s3_key               = each.value.s3_key
+  lambda_function_name         = each.key
+  lambda_function_description  = each.value.function_description
+  lambda_iam_role_arn          = module.iam[each.value.iam_role_name].iam_role_arn
+  lambda_handler               = each.value.handler
+  lambda_runtime               = each.value.runtime
+  lambda_s3_bucket             = each.value.s3_bucket
+  lambda_s3_key                = each.value.s3_key
+  environment                  = each.value.environment
+  lambda_environment_variables = each.value.environment_variables
 }
 
 module "api-gateway" {
