@@ -39,7 +39,8 @@ module "lambda" {
   # Here, we might need depends_on
   # Cause, we dont want lambda to be invoked, unless policies are attached to role
   # Meaning, lambda will have enough permissions when invoked
-  source = "./lambda"
+  source     = "./lambda"
+  depends_on = [module.iam]
 
   lambda_function_name        = var.lambda_function_name
   lambda_function_description = var.lambda_function_description
