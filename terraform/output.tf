@@ -23,3 +23,8 @@ output "api_gateway_rest_api_arn" {
   value       = module.api-gateway.api_gateway_rest_api_arn
   description = "ARN of the API Gateway REST API"
 }
+
+output "api_gateway_stage_url" {
+  value       = module.api-gateway.api_gateway_stage_url
+  description = "Invole URL of the API Gateway Stage"
+}
