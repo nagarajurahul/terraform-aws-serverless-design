@@ -27,8 +27,3 @@ variable "resource_arn" {
   description = ""
   type        = string
 }
-
-variable "resource_name" {
-  description = ""
-  type        = string
-}
