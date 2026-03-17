@@ -15,8 +15,10 @@ variable "event_rules" {
     event_pattern          = any
 
     targets = map(object({
-      target_arn = string
-      target_id  = string
+      target_arn       = string
+      target_id        = string
+      is_lambda_target = optional(bool, false)
+      is_sns_target    = optional(bool, false)
     }))
   }))
 }

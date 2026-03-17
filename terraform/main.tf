@@ -80,8 +80,9 @@ module "eventbridge" {
       }
       targets = {
         "first_target" = {
-          target_id  = "SendToLambda"
-          target_arn = module.lambda["process-payment"].lambda_arn
+          target_id        = "SendToLambda"
+          target_arn       = module.lambda["process-payment"].lambda_arn
+          is_lambda_target = true
         }
       }
     }
