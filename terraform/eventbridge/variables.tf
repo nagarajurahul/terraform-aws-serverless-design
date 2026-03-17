@@ -8,6 +8,11 @@ variable "event_rule_description" {
   type        = string
 }
 
+variable "event_pattern" {
+  description = ""
+  type        = any
+}
+
 variable "target_id" {
   description = ""
   type        = string

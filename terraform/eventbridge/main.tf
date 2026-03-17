@@ -12,10 +12,7 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
   name        = var.event_rule_name
   description = var.event_rule_description
 
-  event_pattern = jsonencode({
-    "source" : ["ecommerce.orders"],
-    "detail-type" : ["OrderPlaced"]
-  })
+  event_pattern = jsonencode(var.event_pattern)
 
   # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
