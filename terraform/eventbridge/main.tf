@@ -30,7 +30,7 @@ resource "aws_cloudwatch_event_target" "event_target" {
 
   # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
-  depends_on = [ aws_cloudwatch_event_rule.event_rule ]
+  depends_on     = [aws_cloudwatch_event_rule.event_rule]
 
   rule = each.value.rule_name
 
