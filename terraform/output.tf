@@ -28,3 +28,18 @@ output "api_gateway_stage_url" {
   value       = module.api-gateway.api_gateway_stage_url
   description = "Invole URL of the API Gateway Stage"
 }
+
+output "event_bus_arn" {
+  value       = module.eventbridge.event_bus_arn
+  description = "ARN of the Event Bus"
+}
+
+output "event_rule_arn" {
+  value       = module.eventbridge.event_rule_arn
+  description = "ARN of the Event Rule"
+}
+
+output "event_target_arn" {
+  value       = module.eventbridge.event_target_arn
+  description = "ARN of the Event Target"
+}
