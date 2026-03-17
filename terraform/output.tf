@@ -43,3 +43,23 @@ output "event_target_arn" {
   value       = module.eventbridge.event_target_arn
   description = "ARN of the Event Target"
 }
+
+output "log_group_arn" {
+  value       = module.cloudwatch.log_group_arn
+  description = "ARN of the CloudWatch Log Group created"
+}
+
+output "log_delivery_destination_arn" {
+  value       = module.cloudwatch.log_delivery_destination_arn
+  description = "ARN of the CloudWatch Log Delivery Destination"
+}
+
+output "log_delivery_source_arn" {
+  value       = module.cloudwatch.log_delivery_source_arn
+  description = "ARN of the CloudWatch Log Delivery Source"
+}
+
+output "log_delivery_arn" {
+  value       = module.cloudwatch.log_delivery_arn
+  description = "ARN of the CloudWatch Log Delivery"
+}
