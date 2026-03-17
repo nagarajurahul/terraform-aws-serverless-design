@@ -3,5 +3,5 @@ output "iam_policy_json" {
     for k, v in data.aws_iam_policy_document.policy :
     k => v.json
   }
-  description = "ARNs of the IAM policies"
+  description = "JSON of the IAM policies"
 }
