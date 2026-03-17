@@ -17,14 +17,18 @@ resource "aws_cloudwatch_event_rule" "event_rule" {
     "detail-type" : ["OrderPlaced"]
   })
 
+  # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
+
   state          = "ENABLED"
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target
 resource "aws_cloudwatch_event_target" "event_target" {
+  # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
   rule           = aws_cloudwatch_event_rule.event_rule.name
+
   target_id      = var.target_id
   arn            = var.event_target_arn
 }
