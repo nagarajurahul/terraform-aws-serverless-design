@@ -1,6 +1,11 @@
 resource "aws_cloudwatch_event_bus" "event_bus" {
   name        = var.event_bus_name
   description = var.event_bus_description
+
+  log_config {
+    include_detail = "FULL"
+    level          = "INFO"
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "event_rule" {
