@@ -57,17 +57,36 @@ module "api-gateway" {
 module "eventbridge" {
   source = "./eventbridge"
 
-  event_rule_name        = "create-order-rule"
-  event_rule_description = "create-order-rule-desc"
-  event_pattern = {
-    source      = ["ecommerce.orders"]
-    detail-type = ["OrderPlaced"]
-  }
-  target_id             = "SendToLambda"
-  event_target_arn      = module.lambda["process-payment"].lambda_arn
-  lambda_function_name  = "process-payment"
+  # event_rule_name        = "create-order-rule"
+  # event_rule_description = "create-order-rule-desc"
+  # event_pattern = {
+  #   source      = ["ecommerce.orders"]
+  #   detail-type = ["OrderPlaced"]
+  # }
+  # target_id             = "SendToLambda"
+  # event_target_arn      = module.lambda["process-payment"].lambda_arn
+  # lambda_function_name  = "process-payment"
+
   event_bus_name        = "orders-bus"
   event_bus_description = "order-bus-desc"
+
+  event_rules = {
+    "create-order-rule" = {
+      event_bus_description = "create-order-rule-desc"
+      state                 = "ENABLED"
+      event_pattern = {
+        source      = ["ecommerce.orders"]
+        detail-type = ["OrderPlaced"]
+      }
+      targets = {
+        "first_target" = {
+          target_id  = "SendToLambda"
+          target_arn = module.lambda["process-payment"].lambda_arn
+        }
+      }
+    }
+  }
+
 }
 
 module "cloudwatch" {

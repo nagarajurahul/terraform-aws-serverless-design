@@ -9,23 +9,31 @@ resource "aws_cloudwatch_event_bus" "event_bus" {
 }
 
 resource "aws_cloudwatch_event_rule" "event_rule" {
-  name        = var.event_rule_name
-  description = var.event_rule_description
+  for_each = var.event_rules
 
-  event_pattern = jsonencode(var.event_pattern)
+  name = each.key
+  # description = each.value.event_rule_description
+  description = lookup(each.value, "event_rule_description", null)
+
+  event_pattern = jsonencode(each.value.event_pattern)
 
   # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
 
-  state = "ENABLED"
+  # state = "ENABLED"
+  state = lookup(each.value, "state", "ENABLED")
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target
 resource "aws_cloudwatch_event_target" "event_target" {
+  for_each = local.flattened_targets
+
   # This is for dependency
   event_bus_name = aws_cloudwatch_event_bus.event_bus.name
-  rule           = aws_cloudwatch_event_rule.event_rule.name
+  depends_on = [ aws_cloudwatch_event_rule.event_rule ]
 
-  target_id = var.target_id
-  arn       = var.event_target_arn
+  rule = each.value.rule_name
+
+  target_id = each.value.target_id
+  arn       = each.value.target_arn
 }

@@ -34,14 +34,14 @@ output "event_bus_arn" {
   description = "ARN of the Event Bus"
 }
 
-output "event_rule_arn" {
-  value       = module.eventbridge.event_rule_arn
-  description = "ARN of the Event Rule"
+output "event_rule_arns" {
+  value       = module.eventbridge.event_rule_arns
+  description = "ARN of the Event Rules"
 }
 
-output "event_target_arn" {
-  value       = module.eventbridge.event_target_arn
-  description = "ARN of the Event Target"
+output "event_target_arns" {
+  value       = module.eventbridge.event_target_arns
+  description = "ARN of the Event Targets"
 }
 
 output "log_group_arn" {
