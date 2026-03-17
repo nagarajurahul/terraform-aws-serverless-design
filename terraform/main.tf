@@ -65,3 +65,22 @@ module "eventbridge" {
   event_bus_name         = "orders-bus"
   event_bus_description  = "order-bus-desc"
 }
+
+module "cloudwatch" {
+  source = "./cloudwatch"
+
+  log_group_name                = "orders-bus-log-group"
+  retention_in_days             = 3
+  log_delivery_destination_name = "some-orders-bus-destination-illa"
+  log_delivery_source_name      = "some-orders-bus-source-howdu"
+  log_type                      = "INFO_LOGS"
+  resource_arn                  = module.eventbridge.event_bus_arn
+}
+
+module "eventbridge-logging" {
+  source = "./eventbridge-logging"
+
+  log_group_arn           = module.cloudwatch.log_group_arn
+  log_delivery_source_arn = module.cloudwatch.log_delivery_source_arn
+  resource_name           = "orders-bus"
+}
