@@ -1,7 +1,7 @@
 locals {
   event_rules = {
-    "create-order-rule" = {
-      event_bus_description = "create-order-rule-description"
+    "order-placed-rule" = {
+      event_bus_description = "order-placed-rule-description"
       state                 = "ENABLED"
       event_pattern = {
         source      = ["ecommerce.orders"]
@@ -15,5 +15,22 @@ locals {
         }
       }
     }
+
+    "payment-succeeded-rule" = {
+      event_bus_description = "payment-succeeded-rule"
+      state                 = "ENABLED"
+      event_pattern = {
+        source      = ["ecommerce.payments"]
+        detail-type = ["PaymentSucceeded"]
+      }
+      targets = {
+        "first_target" = {
+          target_id        = "SendToLambda"
+          target_arn       = module.lambda["update-inventory"].lambda_arn
+          is_lambda_target = true
+        }
+      }
+    }
+
   }
 }
