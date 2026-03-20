@@ -28,3 +28,38 @@ output "api_gateway_stage_url" {
   value       = module.api-gateway.api_gateway_stage_url
   description = "Invole URL of the API Gateway Stage"
 }
+
+output "event_bus_arn" {
+  value       = module.eventbridge.event_bus_arn
+  description = "ARN of the Event Bus"
+}
+
+output "event_rule_arns" {
+  value       = module.eventbridge.event_rule_arns
+  description = "ARN of the Event Rules"
+}
+
+output "event_target_arns" {
+  value       = module.eventbridge.event_target_arns
+  description = "ARN of the Event Targets"
+}
+
+output "log_group_arn" {
+  value       = module.cloudwatch.log_group_arn
+  description = "ARN of the CloudWatch Log Group created"
+}
+
+output "log_delivery_destination_arn" {
+  value       = module.cloudwatch.log_delivery_destination_arn
+  description = "ARN of the CloudWatch Log Delivery Destination"
+}
+
+output "log_delivery_source_arn" {
+  value       = module.cloudwatch.log_delivery_source_arn
+  description = "ARN of the CloudWatch Log Delivery Source"
+}
+
+output "log_delivery_arn" {
+  value       = module.cloudwatch.log_delivery_arn
+  description = "ARN of the CloudWatch Log Delivery"
+}
