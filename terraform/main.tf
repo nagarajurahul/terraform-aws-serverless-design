@@ -88,3 +88,12 @@ module "sns" {
   sns_topic_name  = "simple_sns"
   sns_topic_email = "testingemail@gmail.com"
 }
+
+module "kms" {
+  source                   = "./kms"
+  key_description          = "Key to encrypt and decrypt SNS"
+  key_usage                = "ENCRYPT_DECRYPT"
+  customer_master_key_spec = "SYMMETRIC_DEFAULT"
+  rotation_period_in_days  = 90
+  deletion_window_in_days  = 30
+}
