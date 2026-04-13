@@ -81,3 +81,10 @@ module "eventbridge-logging" {
   log_delivery_source_arn = module.cloudwatch.log_delivery_source_arn
   resource_name           = "orders-bus"
 }
+
+module "sns" {
+  source = "./sns"
+
+  sns_topic_name  = "simple_sns"
+  sns_topic_email = "testingemail@gmail.com"
+}
