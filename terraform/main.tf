@@ -87,6 +87,8 @@ module "sns" {
 
   sns_topic_name  = "simple_sns"
   sns_topic_email = "testingemail@gmail.com"
+
+  kms_arn = module.kms.kms_arn
 }
 
 module "kms" {

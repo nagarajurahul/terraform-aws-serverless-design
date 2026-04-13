@@ -7,3 +7,8 @@ variable "sns_topic_email" {
   description = ""
   type        = string
 }
+
+variable "kms_arn" {
+  description = ""
+  type        = string
+}
