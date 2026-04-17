@@ -29,6 +29,11 @@ locals {
           target_arn       = module.lambda["update-inventory"].lambda_arn
           is_lambda_target = true
         }
+        "second-target" = {
+          target_id        = "SendToSNS"
+          target_arn       = module.sns.sns_arn
+          is_lambda_target = false
+        }
       }
     }
 

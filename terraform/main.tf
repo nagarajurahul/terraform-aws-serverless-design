@@ -81,3 +81,21 @@ module "eventbridge-logging" {
   log_delivery_source_arn = module.cloudwatch.log_delivery_source_arn
   resource_name           = "orders-bus"
 }
+
+module "sns" {
+  source = "./sns"
+
+  sns_topic_name  = "simple_sns"
+  sns_topic_email = "testingemail@gmail.com"
+
+  kms_arn = module.kms.kms_arn
+}
+
+module "kms" {
+  source                   = "./kms"
+  key_description          = "Key to encrypt and decrypt SNS"
+  key_usage                = "ENCRYPT_DECRYPT"
+  customer_master_key_spec = "SYMMETRIC_DEFAULT"
+  rotation_period_in_days  = 90
+  deletion_window_in_days  = 30
+}
