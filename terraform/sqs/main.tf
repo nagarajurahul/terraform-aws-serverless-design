@@ -5,4 +5,6 @@ resource "aws_sqs_queue" "sqs_queue" {
   max_message_size           = var.max_message_size
   message_retention_seconds  = var.message_retention_seconds
   receive_wait_time_seconds  = var.receive_wait_time_seconds
+
+  kms_master_key_id = var.kms_arn
 }

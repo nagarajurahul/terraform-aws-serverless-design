@@ -32,3 +32,8 @@ variable "receive_wait_time_seconds" {
   type        = number
   default     = 10
 }
+
+variable "kms_arn" {
+  description = "KMS ARN to encrypt the SQS Queue"
+  type        = string
+}

@@ -93,7 +93,7 @@ module "sns" {
 
 module "kms" {
   source                   = "./kms"
-  key_description          = "Key to encrypt and decrypt SNS"
+  key_description          = "Key to encrypt and decrypt SNS, SQS"
   key_usage                = "ENCRYPT_DECRYPT"
   customer_master_key_spec = "SYMMETRIC_DEFAULT"
   rotation_period_in_days  = 90
@@ -109,4 +109,5 @@ module "shipment_queue" {
   max_message_size           = 262144
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
+  kms_arn                    = module.kms.kms_arn
 }
