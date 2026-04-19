@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main, iam, dynamodb, lambda, api-gateway, cloudwatch, eventbridge, sns]
+    branches: [ main, iam, dynamodb, lambda, api-gateway, cloudwatch, eventbridge, sns, sqs]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
