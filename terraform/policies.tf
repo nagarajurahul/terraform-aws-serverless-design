@@ -87,6 +87,19 @@ locals {
           }]
         }
 
+        update-inventory-sqs-policy = {
+          statements = [{
+            effect = "Allow"
+            actions = [
+              "sqs:ReceiveMessage",
+              "sqs:DeleteMessage",
+              "sqs:GetQueueAttributes",
+              "sqs:ChangeMessageVisibility"
+            ]
+            resources = [module.sqs.sqs_arn]
+          }]
+        }
+
         # update-inventory-dynamodb-policy = {
         #   statements = [{
         #     effect    = "Allow"

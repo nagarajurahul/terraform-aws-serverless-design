@@ -100,10 +100,10 @@ module "kms" {
   deletion_window_in_days  = 30
 }
 
-module "shipment_queue" {
+module "sqs" {
   source = "./sqs"
 
-  queue_name                 = "shipment-queue"
+  queue_name                 = "update-inventory-queue"
   delay_seconds              = 0
   visibility_timeout_seconds = 60
   max_message_size           = 262144
