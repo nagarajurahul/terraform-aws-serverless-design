@@ -25,9 +25,9 @@ locals {
       }
       targets = {
         "first_target" = {
-          target_id        = "SendToLambda"
-          target_arn       = module.lambda["update-inventory"].lambda_arn
-          is_lambda_target = true
+          target_id        = "SendToSQS"
+          target_arn       = module.sqs.sqs_arn
+          is_lambda_target = false
         }
         "second-target" = {
           target_id        = "SendToSNS"
