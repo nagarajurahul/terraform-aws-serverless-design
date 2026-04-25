@@ -111,3 +111,10 @@ module "sqs" {
   receive_wait_time_seconds  = 10
   kms_arn                    = module.kms.kms_arn
 }
+
+module "lambda-sqs" {
+  source = "./lambda-sqs"
+
+  lambda_arn = module.lambda["update-inventory"].lambda_arn
+  sqs_arn    = module.sqs.sqs_arn
+}
