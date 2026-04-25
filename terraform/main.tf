@@ -118,3 +118,13 @@ module "lambda-sqs" {
   lambda_arn = module.lambda["update-inventory"].lambda_arn
   sqs_arn    = module.sqs.sqs_arn
 }
+
+module "sqs-permissions" {
+  source = "./sqs-permissions"
+
+  sqs_queue_id  = module.sqs.sqs_id
+  sqs_queue_arn = module.sqs.sqs_arn
+  source_arns = {
+    eventbridge = [module.eventbridge.event_rule_arns["payment-succeeded-rule"]]
+  }
+}
