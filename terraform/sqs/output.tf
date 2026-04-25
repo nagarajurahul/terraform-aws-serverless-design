@@ -4,6 +4,6 @@ output "sqs_arn" {
 }
 
 output "sqs_id" {
-  value = aws_sqs_queue.sqs_queue.id
+  value       = aws_sqs_queue.sqs_queue.id
   description = ""
 }
