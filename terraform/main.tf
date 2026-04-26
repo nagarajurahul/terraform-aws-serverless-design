@@ -128,3 +128,9 @@ module "sqs-permissions" {
     eventbridge = [module.eventbridge.event_rule_arns["payment-succeeded-rule"]]
   }
 }
+
+module "kms-policy" {
+  source = "./kms-policy"
+
+  kms_key_id = module.kms.kms_key_id
+}
