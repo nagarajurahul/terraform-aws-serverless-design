@@ -93,9 +93,44 @@ module "sns" {
 
 module "kms" {
   source                   = "./kms"
-  key_description          = "Key to encrypt and decrypt SNS"
+  key_description          = "Key to encrypt and decrypt SNS, SQS"
   key_usage                = "ENCRYPT_DECRYPT"
   customer_master_key_spec = "SYMMETRIC_DEFAULT"
   rotation_period_in_days  = 90
   deletion_window_in_days  = 30
+}
+
+module "sqs" {
+  source = "./sqs"
+
+  queue_name                 = "update-inventory-queue"
+  delay_seconds              = 0
+  visibility_timeout_seconds = 60
+  max_message_size           = 262144
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 10
+  kms_arn                    = module.kms.kms_arn
+}
+
+module "lambda-sqs" {
+  source = "./lambda-sqs"
+
+  lambda_arn = module.lambda["update-inventory"].lambda_arn
+  sqs_arn    = module.sqs.sqs_arn
+}
+
+module "sqs-permissions" {
+  source = "./sqs-permissions"
+
+  sqs_queue_id  = module.sqs.sqs_id
+  sqs_queue_arn = module.sqs.sqs_arn
+  source_arns = {
+    eventbridge = [module.eventbridge.event_rule_arns["payment-succeeded-rule"]]
+  }
+}
+
+module "kms-policy" {
+  source = "./kms-policy"
+
+  kms_key_id = module.kms.kms_key_id
 }
