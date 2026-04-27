@@ -1,3 +1,4 @@
+# https://registry.terraform.io/providers/hashicorp/aws/6.41.0/docs/data-sources/iam_policy_document
 data "aws_iam_policy_document" "policy" {
   for_each = var.iam_policies
 
