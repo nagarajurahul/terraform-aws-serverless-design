@@ -129,8 +129,8 @@ module "sqs-permissions" {
   }
 }
 
-module "kms-policy" {
-  source = "./kms-policy"
+module "kms-key-policy" {
+  source = "./kms-key-policy"
 
   kms_key_id = module.kms.kms_key_id
 }
