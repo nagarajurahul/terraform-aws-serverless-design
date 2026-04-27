@@ -4,7 +4,9 @@ data "aws_iam_policy_document" "policy" {
 
   dynamic "statement" {
     for_each = each.value.statements
+
     content {
+      sid       = try(statement.value.sid, null)
       effect    = statement.value.effect
       actions   = statement.value.actions
       resources = statement.value.resources
@@ -16,12 +18,15 @@ data "aws_iam_policy_document" "policy" {
 
       dynamic "condition" {
         for_each = statement.value.conditions
+
         content {
           test     = condition.value.test
           variable = condition.value.variable
           values   = condition.value.values
         }
       }
+
     }
   }
+
 }
