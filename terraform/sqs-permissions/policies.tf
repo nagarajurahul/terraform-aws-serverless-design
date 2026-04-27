@@ -11,7 +11,12 @@ locals {
           actions   = ["sqs:SendMessage"]
           resources = [var.sqs_queue_arn]
 
-          principal_identifiers = ["events.amazonaws.com"]
+          principals = [
+            {
+              type        = "Service",
+              identifiers = ["events.amazonaws.com"]
+            }
+          ]
 
           conditions = [
             {

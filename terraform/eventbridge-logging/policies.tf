@@ -6,11 +6,18 @@ locals {
     eventbridge_logs = {
       statements = [
         {
+          // Give sid here
+
           effect    = "Allow"
           actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
           resources = ["${var.log_group_arn}:log-stream:*"]
 
-          principal_identifiers = ["delivery.logs.amazonaws.com"]
+          principals = [
+            {
+              type        = "Service"
+              identifiers = ["delivery.logs.amazonaws.com"]
+            }
+          ]
 
           conditions = [
             {

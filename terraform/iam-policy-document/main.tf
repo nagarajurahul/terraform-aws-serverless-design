@@ -11,9 +11,13 @@ data "aws_iam_policy_document" "policy" {
       actions   = statement.value.actions
       resources = statement.value.resources
 
-      principals {
-        type        = "Service"
-        identifiers = statement.value.principal_identifiers
+      dynamic "principals" {
+        for_each = statement.value.principals
+
+        content {
+          type        = principals.value.type
+          identifiers = principals.value.identifiers
+        }
       }
 
       dynamic "condition" {
