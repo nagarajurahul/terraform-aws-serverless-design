@@ -132,5 +132,8 @@ module "sqs-permissions" {
 module "kms-key-policy" {
   source = "./kms-key-policy"
 
-  kms_key_id = module.kms.kms_key_id
+  kms_key_id              = module.kms.kms_key_id
+  eventbridge_source_arns = [module.eventbridge.event_rule_arns["payment-succeeded-rule"]]
+  sqs_arns                = [module.sqs.sqs_arn]
+  lambda_role_arns        = [module.iam["update-inventory-role"].iam_role_arn]
 }
